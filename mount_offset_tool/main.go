@@ -57,10 +57,14 @@ func getDevices(img string) error {
 	}
 	// log.Printf("unitSz = %+v\n", unitSz)
 	// log.Printf("devices = %+v\n", devices)
+	i := 0
 	// calculate and print mount cmd for img2
 	for _, d := range devices {
 		offset := unitSz * d.Start
-		fmt.Printf("%s mount command:\n  mount -v -o offset=%d,loop %s /mnt\n", d.Device, offset, img)
+		if i == 1 {
+			fmt.Printf("mount -v -o offset=%d,loop %s /mnt; \n", offset, img)
+		}
+		i = i+1
 	}
 
 	return nil

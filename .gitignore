@@ -1,2 +1,5 @@
 build
 mount_offset_tool/mount_offset_tool
+main
+*.zip
+*.img
