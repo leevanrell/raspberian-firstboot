@@ -1,0 +1,15 @@
+[Unit]
+Description=FirstBoot
+After=network.target
+Before=rc-local.service
+ConditionFileNotEmpty=/boot/sudo.sh
+
+[Service]
+ExecStart=/usr/bin/sudo /boot/sudo.sh
+ExecStartPost=/bin/mv /boot/sudo.sh /boot/sudo.sh.done
+Type=oneshot
+RemainAfterExit=no
+User=pi
+
+[Install]
+WantedBy=multi-user.target
