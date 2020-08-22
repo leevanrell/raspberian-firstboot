@@ -7,14 +7,10 @@ wget -O /home/pi/display.py https://github.com/leevanrell/raspberian-firstboot/r
 chmod 777 /home/pi/display.py
 
 crontab -l > mcron 
-echo "0 6 * * * /home/pi/scrip.py turnon" >> mcron
-echo "0 21 * * * /home/pi/scrip.py turnoff" >> mcron
+echo "0 6 * * * /home/pi/display.py turnon" >> mcron
+echo "0 21 * * * /home/pi/display.py turnoff" >> mcron
 crontab mcron 
 rm mcron 
-
-
-
-
 
   
 # done

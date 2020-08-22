@@ -9,12 +9,11 @@ sudo apt install golang
 
 # get buster image
 BASE_DIR="$(pwd)"
-echo "$(pwd)"
-FILE=buster-lite.zip
+FILE=buster-lite.iso
 FILE_IMG=buster-lite.img
 CUSTOM_IMG=custom-buster-lite.zip
 if ! test -f "$FILE" || ! test -f "$FILE_IMG" ; then
-    wget -O buster-lite.iso https://downloads.raspberrypi.org/raspbian_lite_latest
+    wget -O $FILE https://downloads.raspberrypi.org/raspbian_lite_latest
 	unzip $FILE
 	mv *.img $FILE_IMG
 fi
@@ -33,9 +32,9 @@ read -p "Password: " KEY
 # KEY="TEST"
 
 # add configs
-sed -e "s/SSID/$SSID/g" -e "s/KEY/$KEY/g" ./configs/wpa_supplicant.conf > tmp && sudo mv tmp /mnt/boot/wpa_supplicant.conf
-sudo cp ./configs/firstboot-pi.service /mnt/lib/systemd/system/firstboot-pi.service
-sudo cp ./configs/firstboot-root.service /mnt/lib/systemd/system/firstboot-root.service
+sed -e "s/SSID/$SSID/g" -e "s/KEY/$KEY/g" ./firstboot/wpa_supplicant.conf > tmp && sudo mv tmp /mnt/boot/wpa_supplicant.conf
+sudo cp ./firstboot/firstboot-pi.service /mnt/lib/systemd/system/firstboot-pi.service
+sudo cp ./firstboot/firstboot-root.service /mnt/lib/systemd/system/firstboot-root.service
 #cd /mnt/etc/systemd/system/multi-user.target.wants && sudo ln -s /lib/systemd/system/firstboot-pi.service . 
 #cd /mnt/etc/systemd/system/multi-user.target.wants && sudo ln -s /lib/systemd/system/firstboot-root.service .
 sudo ln -s /lib/systemd/system/firstboot-pi.service /mnt/etc/systemd/system/multi-user.target.wants
